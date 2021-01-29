@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Saleman;
 use App\Pos;
+use App\Product;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -28,8 +29,10 @@ class PosController extends Controller
      */
     public function create()
     {
-      $saleMans  = Saleman::all();
-        return view("dashboard.pos.add" , compact('saleMans'));
+        $salemans  = Saleman::all();
+        $products  = Product::all();
+
+        return view("dashboard.pos.add" , compact('products', 'salemans'));
 
     }
 

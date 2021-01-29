@@ -45,7 +45,7 @@ class SalemanController extends Controller
 
         'name'=> 'required|string|max:255',
         'designation'=> 'required|string|max:255',
-        'contactNumber'=> 'required|numeric|min:0|max:900000',
+        'contactNumber'=> 'required|numeric',
         'address'=> 'required|string|min:1|max:900000'
 
       ]);
