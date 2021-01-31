@@ -28,11 +28,7 @@
               </li>
 
 
-            <li class="{{ requestIsFromArray([ 'salemans.index', 'salemans.edit' ,'salemans.create' ]) }} nav-item">
-              <a href="{!! route('salemans.index') !!}"><i class="feather icon-send"></i>
-                <span class="menu-title" >Salemans</span>
-             </a>
-            </li>
+
 
             <li class="{{ requestIs('purchase.index') }} nav-item">
               <a href="{!! route('purchase.index') !!}"><i class="fa fa-truck"></i>
@@ -40,6 +36,12 @@
                 <span class="menu-title" >Purchase</span>
              </a>
             </li>
+            <li class="{{ requestIs('pos.index') }} nav-item">
+              <a href="{!! route('pos.index') !!}"><i class="fa fa-shopping-cart"></i>
+                <span class="menu-title" >POS</span>
+             </a>
+            </li>
+
 
 
             <li class="{{ requestIs('expence.index') }} nav-item">
@@ -54,14 +56,13 @@
              </a>
             </li> --}}
 
-            <li class="{{ requestIs('pos.index') }} nav-item">
-              <a href="{!! route('pos.index') !!}"><i class="fa fa-shopping-cart"></i>
-                <span class="menu-title" >POS</span>
+
+
+            <li class="{{ requestIsFromArray([ 'salemans.index', 'salemans.edit' ,'salemans.create' ]) }} nav-item">
+              <a href="{!! route('salemans.index') !!}"><i class="feather icon-send"></i>
+                <span class="menu-title" >Salemans</span>
              </a>
             </li>
-
-
-
 
             <li class=" nav-item"><a href="javascript:void(0)"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Icons">User</span></a>
                 <ul class="menu-content">

@@ -136,6 +136,9 @@ class PurchaseController extends Controller
 
     $product= Product::find($purchase->productId);
     $product->stockAvailable = $product->stockAvailable  - $purchase->quantity ;
+    if ($product->stockAvailable < 0) {
+      $product->stockAvailable = 0;
+    }
     $product->save();
 
       $purchase->delete();
