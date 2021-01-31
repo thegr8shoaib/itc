@@ -66,7 +66,14 @@
                                               </div>
                                           </div>
                                       </div>
-
+                                      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                          <div class="form-group">
+                                              <div class="controls">
+                                                <label for="Date">Date:</label>
+                                               <input type="number" class="form-control Date" id="Date" name="Date" value="{{$expence->Date}}" required>
+                                              </div>
+                                          </div>
+                                      </div>
 
 
                                 @endif
@@ -88,6 +95,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+flatpickr('.Date')
+</script>
+
 <!-- END: Content-->
 @endsection
 

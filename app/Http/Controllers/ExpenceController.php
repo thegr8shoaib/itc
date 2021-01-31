@@ -45,6 +45,7 @@ class ExpenceController extends Controller
         'name'=> 'required|string|max:255',
         'amount'=> 'required|numeric|max:255',
         'discription'=> 'required|string|min:0|max:900000',
+        'Date'=> 'required|string',
 
       ]);
 
@@ -90,13 +91,15 @@ class ExpenceController extends Controller
       $data = $request->validate([
         'name'=> 'required|string|max:255',
         'amount'=> 'required|numeric|min:0|max:900000',
-        'discription'=> 'required|string|min:0|max:900000'
+        'discription'=> 'required|string|min:0|max:900000',
+        'Date'=> 'required|string',
 
     ]);
 
     $expence->name  = $request->name;
     $expence->amount  = $request->amount;
     $expence->discription  = $request->discription;
+    $expence->Date  = $request->Date;
     $expence->save();
         return statusTo("Expence Updated Successfully" , route('expence.index') );
     }

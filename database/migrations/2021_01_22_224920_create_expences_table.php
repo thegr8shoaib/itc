@@ -19,6 +19,7 @@ class CreateExpencesTable extends Migration
           $table->string('name');
           $table->double('amount')->nullable();
           $table->string('discription')->nullable();
+            $table->string('Date')->nullable();
           $table->timestamps();
         });
     }

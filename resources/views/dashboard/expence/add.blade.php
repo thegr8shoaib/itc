@@ -56,6 +56,14 @@
                                       </div>
                                   </div>
                               </div>
+                              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                  <div class="form-group">
+                                      <div class="controls">
+                                          <label for="Date">Date:</label>
+                                         <input type="date" class="form-control" id="Date" name="Date" value="{{ old('Date') }}" required>
+                                      </div>
+                                  </div>
+                              </div>
 
 
                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
@@ -82,8 +90,7 @@
 <script src="{{ asset("app-assets/vendors/js/forms/select/select2.full.min.js") }}" charset="utf-8"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-      $('.select2Video').select2();
-      $('.select2Video').val(60).trigger('change');
+    flatpickr('.Date')
 
   });
 </script>

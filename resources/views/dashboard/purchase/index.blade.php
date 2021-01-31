@@ -82,7 +82,7 @@
 
 
                                             <td>
-                                             <a  href="{{ route('purchase.edit',$purchase->id) }}"><i class="fa fa-edit d-inline">  </i></a>
+                                             {{-- <a  href="{{ route('purchase.edit',$purchase->id) }}"><i class="fa fa-edit d-inline">  </i></a> --}}
                                              <form class="d-inline" action="{{ route('purchase.destroy' , $purchase->id) }}" method="post">
                                                  @csrf
 

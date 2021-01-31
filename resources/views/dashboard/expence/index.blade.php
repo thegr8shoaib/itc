@@ -29,6 +29,7 @@
                                             <th>Name</th>
                                             <th>Amount :</th>
                                             <th>Description :</th>
+                                                <th>Date:</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -58,7 +59,9 @@
                                             <td>
                                               {{ $expence->discription }}
                                             </td>
-
+                                            <td>
+                                              {{ dateTimeToFormatedDate($expence->Date, 'd M, Y') }}
+                                            </td>
 
                                             <td>
                                              <a   href="{{ route('expence.edit',$expence->id) }}"> <i class="fa fa-edit d-inline">  </i></a>
