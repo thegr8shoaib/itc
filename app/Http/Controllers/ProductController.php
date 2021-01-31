@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Company;
+use App\purchase;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+      // $products->salePrice  = $request->salePrice +   $purchase->salePrice ;
+      //
+      // $products->save();
         $products = Product::paginate(10);
 
         $array['products'] = $products;
@@ -96,7 +101,7 @@ class ProductController extends Controller
 
       $product->name  = $request->name;
       $product->salePrice  = $request->salePrice;
-      
+
       $product->save();
           return statusTo("Product Updated Successfully" , route('products.index') );
     }

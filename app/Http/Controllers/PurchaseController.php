@@ -40,7 +40,15 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-      $product = Product::find($request->product);
+
+      $product = Product::find($request->productId);
+
+
+      $product->stockAvailable = $product->stockAvailable  + $request->quantity ;
+      $product->save();
+      $product->salePrice =  $request->salePrice ;
+      $product->save();
+
 
       $data = $request->validate([
 
@@ -125,6 +133,11 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
+
+    $product= Product::find($purchase->productId);
+    $product->stockAvailable = $product->stockAvailable  - $purchase->quantity ;
+    $product->save();
+
       $purchase->delete();
       return statusTo("Purchase deleted successfully", route('purchase.index'));
     }
