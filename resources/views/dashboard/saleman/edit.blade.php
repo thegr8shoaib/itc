@@ -52,8 +52,8 @@
                                       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                           <div class="form-group">
                                               <div class="controls">
-                                                  <label for="designation">Designation :</label>
-                                                 <input type="text" class="form-control" id="designation" name="designation" value="{{$saleman->designation }}" required>
+                                                  <label for="designation">Email:</label>
+                                                 <input type="email" class="form-control" id="designation" name="designation" value="{{$saleman->designation }}" required>
                                               </div>
                                           </div>
                                       </div>

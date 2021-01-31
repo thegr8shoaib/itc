@@ -30,7 +30,7 @@
                             <div class="row mt-1">
 
 
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                     <div class="form-group">
                                         <div class="controls">
                                           <label for="name" >Product Name :</label>
@@ -44,7 +44,7 @@
 
 
 
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                {{-- <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="company">Company :</label>
@@ -59,7 +59,7 @@
                                 </div>
 
 
-
+{{--
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                     <div class="form-group">
                                         <div class="controls">
@@ -67,7 +67,7 @@
                                            <input type="number" class="form-control" id="unit" name="unit" value="{{ old('unit') }}" required>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">

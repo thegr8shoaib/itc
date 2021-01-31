@@ -17,11 +17,9 @@ class CreateProductsTable extends Migration
               $table->id();
             $table->integer('user_id');
             $table->string('name');
-
-            $table->integer('salePrice')->nullable();
+            $table->integer('salePrice')->default('0');
             $table->integer('stockAvailable')->default('0');
-            // $table->string('company');
-            // $table->double('unit');
+
             $table->timestamps();
         });
     }

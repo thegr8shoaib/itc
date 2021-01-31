@@ -27,7 +27,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Desgination :</th>
+                                            <th>Email:</th>
                                             <th>Contact Number :</th>
                                             <th>Address :</th>
                                             <th>Action</th>

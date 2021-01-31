@@ -28,8 +28,8 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Product Name</th>
-                                            <th>Company :</th>
-                                            <th>Units Per Pack:</th>
+                                            <th>Quantity in Stock:</th>
+                                            <th>Price:</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -53,11 +53,11 @@
                                             </td>
 
                                             <td>
-                                              {{ $product->company }}
+                                              {{ $product->stockAvailable }}
                                             </td>
 
                                             <td>
-                                              {{ $product->unit }}
+                                              {{ $product->salePrice }}
                                             </td>
 
 

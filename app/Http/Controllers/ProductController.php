@@ -43,9 +43,8 @@ class ProductController extends Controller
       $data = $request->validate([
 
 
-        'name'=> 'required|string|max:255',
-        'company'=> 'required|string|max:255',
-        'unit'=> 'required|numeric|min:1|max:900000'
+        'name'=> 'required|string|max:255'
+
 
       ]);
 
@@ -90,15 +89,14 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->validate([
-          'name'=> 'required|string|max:255',
-          'company'=> 'required|string|max:255',
-          'unit'=> 'required|numeric|min:1|max:900000'
+          'name'=> 'required|string|max:255'
+
 
       ]);
 
       $product->name  = $request->name;
-      $product->company  = $request->company;
-      $product->unit  = $request->unit;
+      $product->salePrice  = $request->salePrice;
+      
       $product->save();
           return statusTo("Product Updated Successfully" , route('products.index') );
     }

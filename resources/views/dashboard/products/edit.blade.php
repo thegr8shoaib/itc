@@ -38,7 +38,7 @@
                                   <div class="row mt-1">
 
 
-                                      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                      <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                           <div class="form-group">
                                               <div class="controls">
                                                 <label for="name" >Product Name :</label>
@@ -48,24 +48,24 @@
                                       </div>
 
 
-                                      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                      <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                           <div class="form-group">
                                               <div class="controls">
-                                                  <label for="company">Company :</label>
-                                                 <input type="text" class="form-control" id="company" name="company" value="{{$product->company }}" required>
+                                                  <label for="salePrice">Sale Price :</label>
+                                                 <input type="text" class="form-control" id="salePrice" name="salePrice" value="{{$product->salePrice }}" required>
                                               </div>
                                           </div>
                                       </div>
 
-                                      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                      {{-- <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                           <div class="form-group">
                                               <div class="controls">
-                                                  <label for="unit">Units Per Pack:</label>
+                                                  <label for="unit">stockAvailable:</label>
                                                  <input type="number" class="form-control" id="unit" name="unit" value="{{$product->unit }}" required>
                                               </div>
                                           </div>
-                                      </div>
-                                      
+                                      </div> --}}
+
                                 @endif
 
 

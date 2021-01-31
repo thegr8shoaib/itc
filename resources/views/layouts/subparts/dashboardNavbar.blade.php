@@ -48,11 +48,11 @@
              </a>
 
             </li>
-            <li class="{{ requestIs('company.index') }} nav-item">
+            {{-- <li class="{{ requestIs('company.index') }} nav-item">
               <a href="{!! route('company.index') !!}"><i class="fa fa-building"></i>
                 <span class="menu-title" >Company</span>
              </a>
-            </li>
+            </li> --}}
 
             <li class="{{ requestIs('pos.index') }} nav-item">
               <a href="{!! route('pos.index') !!}"><i class="fa fa-shopping-cart"></i>
