@@ -1,4 +1,17 @@
 <script type="text/javascript">
+Vue.directive('selecttwo', {
+  twoWay: true,
+  bind: function () {
+    $(this.el).select2()
+    .on("select2:select", function(e) {
+      this.set($(this.el).val());
+    }.bind(this));
+  },
+  update: function(nv, ov) {
+    $(this.el).trigger("change");
+  }
+});
+
     var app = new Vue({
         el: '#app',
 
@@ -8,22 +21,48 @@
             selectedProduct: 0,
             selectedProducts: [],
         },
-
+        created() {
+           window.addEventListener('keydown', (e) => {
+             // if (e.key == 'Escape') {
+             //   this.showModal = !this.showModal;
+             // }
+             // (event.ctrlKey || event.metaKey)
+             console.log(e.ctrlKey , e.metaKey, e.key);
+              if (e.ctrlKey && e.key.toLowerCase() == 's') {
+                this.$refs.saleman.input.focus();
+                console.log(this.$refs.saleman);
+              }
+           });
+         },
         methods: {
 
 
-            addProduct: function () {
-              var index = this.selectedProducts.findIndex(x => x.id === this.selectedProduct);
+            productChoosed: function () {
+              var index = this.selectedProducts.findIndex(x => x.id === this.selectedProduct.id);
               if (index === -1) {
                 this.addProduct(this.selectedProduct, index);
+              }else {
+                this.editProduct(this.selectedProduct, index);
               }
-              console.log(index);
+              this.selectedProduct = 0;
+              $("#product").select2().val(0).change();
             },
             addProduct: function(selectedProduct, index){
               selectedProduct.cartQuantity = 1;
-              this.selectedProducts[index] = selectedProduct;
+              this.selectedProducts.push(selectedProduct);
             },
-
+            editProduct: function (selectedProduct, index, value = null) {
+              if (value) {
+                selectedProduct.cartQuantity = value;
+              }else {
+                selectedProduct.cartQuantity = 1 + this.selectedProducts[index].cartQuantity;
+              }
+              this.selectedProducts[index] = selectedProduct;
+              this.selectedProducts.splice(0,0);
+            },
+            quantityUpdated: function (p,index,event) {
+              this.editProduct(p,index, Number(event.target.value));
+            },
             updateDefaultPaymentMethod: function(result) {
                 var self = this;
                 self.isUpdatingDefaultPaymentMethod = true;
