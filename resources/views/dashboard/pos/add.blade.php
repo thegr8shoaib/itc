@@ -91,7 +91,7 @@
                                                 <th>{{ index + 1 }}</th>
                                                 <td>{{ p.name }}</td>
                                                 <td >
-                                                    <input  type="number" @change="quantityUpdated(p,index,$event)" v-model.number="p.cartQuantity" class="form-control" name="quantity">
+                                                    <input v-bind:max="p.stockAvailable" type="number" @change="quantityUpdated(p,index,$event)" v-model.number="p.cartQuantity" class="form-control" name="quantity">
                                                 </td>
                                                 <td>{{ p.salePrice }}</td>
                                                 <td> {{ p.cartQuantity }} * {{ p.salePrice }} = {{ p.salePrice * p.cartQuantity }}</td>
