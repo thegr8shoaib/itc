@@ -72,20 +72,30 @@ Vue.directive('selecttwo', {
             quantityUpdated: function (p,index,event) {
               this.editProduct(p,index, Number(event.target.value));
             },
-            updateDefaultPaymentMethod: function(result) {
+            submitCart: function(result) {
                 var self = this;
-                self.isUpdatingDefaultPaymentMethod = true;
+                if (this.$refs.saleman.value == '') {
+                  alert('Please select saleman');
+                  return 0;
+                }
 
-                var paymentIntent = result.paymentIntent;
-                var apiEndPoint = "{{ route('home') }}";
+                if (this.$refs.date.value == '') {
+                  alert('Please select date');
+                  return 0;
+                }
+                if (this.selectedProducts.length == 0) {
+                  alert('Please select a product');
+                  return 0;
+                }
 
+                var apiEndPoint = "{{ route('saveInvoiceAndPrint') }}";
                 var formData = new FormData();
-                formData.append('paymentIntent', paymentIntent.id);
-                formData.append('paymentMethod', paymentIntent.payment_method);
-                formData.append('clientSecret', paymentIntent.client_secret);
+                formData.append('selectedProducts', JSON.stringify(this.selectedProducts));
+                formData.append('saleman', this.$refs.saleman.value);
+                formData.append('date', this.$refs.date.value);
 
                 axios.post(apiEndPoint, formData).then(response => {
-                    self.isUpdatingDefaultPaymentMethod = false;
+
                 }).catch(function(e, f) {
 
                     alert('error');

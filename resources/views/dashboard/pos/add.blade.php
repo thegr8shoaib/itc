@@ -101,6 +101,10 @@
                                     </table>
                                 </div>
 
+                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                                    <button ref="submitBtn" v-on:click="submitCart" type="button" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Submit</button>
+                                </div>
+
                             </div>
 
 
@@ -151,6 +155,7 @@
 @endsection
 @section('headend')
 <script src="{{ asset('mawaisnow/vue.js') }}" charset="utf-8"></script>
+<script src="{{ asset('mawaisnow/axios.min.js') }}" charset="utf-8"></script>
 <link rel="stylesheet" href="{!! asset('app-assets/css/pages/users.css') !!}">
 <link rel="stylesheet" href="{!! asset('app-assets/vendors/css/forms/select/select2.min.css') !!}">
 @endsection
