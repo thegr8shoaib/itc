@@ -98,7 +98,7 @@ Vue.directive('selecttwo', {
 
                 }).catch(function(e, f) {
 
-                    alert('error');
+                    // alert('error');
                     // console.log(e,f);
                 });
 
