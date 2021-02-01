@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="product">Product:</label>
-                                            <select @change="productChoosed" v-model="selectedProduct" class="form-control" id="product" name="product">
+                                            <select @change="productChoosed" ref="product" v-model="selectedProduct" class="form-control" id="product" name="product">
                                             <option value="0" disabled selected>select an option</option>
                                             <option v-for="product in products" v-bind:value="product">
                                                 {{ product.name }}
@@ -63,7 +63,7 @@
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="date">Date:</label>
-                                            <input  class="form-control" id="date" name="date">
+                                            <input ref="date" class="form-control" id="date" name="date">
 
                                         </div>
                                     </div>

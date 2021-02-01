@@ -27,11 +27,20 @@ Vue.directive('selecttwo', {
              //   this.showModal = !this.showModal;
              // }
              // (event.ctrlKey || event.metaKey)
-             console.log(e.ctrlKey , e.metaKey, e.key);
-              if (e.ctrlKey && e.key.toLowerCase() == 's') {
-                this.$refs.saleman.input.focus();
-                console.log(this.$refs.saleman);
+             console.log(e.altKey , e.metaKey, e.key);
+             console.log(e.altKey && e.key.keyCode);
+             console.log(e.key.keyCode);
+              if (e.altKey && e.keyCode == 83) {
+                this.$refs.saleman.focus();
               }
+
+              if (e.altKey && e.keyCode == 65) {
+                this.$refs.product.focus();
+              }
+              if (e.altKey && e.keyCode == 68) {
+                this.$refs.date.focus();
+              }
+
            });
          },
         methods: {
