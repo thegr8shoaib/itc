@@ -7,59 +7,59 @@ use App\Order;
 use App\Product;
 use App\OrderItem;
 use Auth;
+use App\Saleman;
 
 class OrderController extends Controller
 {
-    public function saveInvoiceAndPrint(Request $request)
-    {
-      $saleman = $request->saleman;
-      $selectedProducts = $request->selectedProducts;
-      $selectedProducts = json_decode($selectedProducts);
-      $date = $request->date;
+  public function saveInvoiceAndPrint(Request $request)
+  {
+    $salemanId = $request->saleman;
 
-      $order = Order::create([
-        'user_id' => Auth::id(),
-        'saleman_id' =>$saleman,
-        'date' =>$date
+    $saleman = Saleman::find($salemanId);
+
+    $selectedProducts = $request->selectedProducts;
+    $selectedProducts = json_decode($selectedProducts);
+    $date = $request->date;
+
+    $order = Order::create([
+      'user_id' => Auth::id(),
+      'saleman_id' => $saleman->id,
+      'date' => $date
+    ]);
+
+
+
+
+    foreach ($selectedProducts as $slectedProduct) {
+      $product = Product::find($slectedProduct->id);
+      if ($slectedProduct->cartQuantity > $product->stockAvailable) {
+        return json(0, "$product->name stock quantity is Low,  available " . $product->stockAvailable);
+      }
+      $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
+      $product->save();
+      OrderItem::create([
+        'product_id' => $product->id,
+        'name' => $product->name,
+        'salePrice' => $product->salePrice,
+        'quantity' => $slectedProduct->cartQuantity,
+        'order_id' => $order->id
       ]);
-
-
-
-
-      foreach ($selectedProducts as $slectedProduct) {
-$product = Product::find($slectedProduct->id);
-
-  $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
-  if ( $slectedProduct->cartQuantity > $product->stockAvailable ) {
-return json(0,"Stock Quantity is Low  Available " . $product->stockAvailable);
-      }
-  $product->save();
-
-        OrderItem::create([
-          'product_id' => $product->id,
-          'name' =>$product->name,
-          'salePrice' =>$product->salePrice,
-          'quantity' =>$slectedProduct->cartQuantity,
-          'order_id' => $order->id
-        ]);
-
-
-      }
-
     }
+
+    return json(1,'success',[
+      'orderId'=> $order->id
+    ]);
+  }
+
+  public function generateInvoice(Request $request, $orderId)
+  {
+    $order = Order::with('saleman')->with('orderItems')->where('id',$orderId)->first();
+
+    $invoice = view('invoice.orderInvoice',[
+      'order'=> $order
+    ]);
+
+    return $invoice;
+
+  }
 }
-
-
-
-// $order = new Order;
-// $order->user_id = Auth::id();
-// $order->saleman = $saleman;
-// $order->date = $date;
-// $order->save();
-
-
-// Order::create([
-//   'user_id'=> Auth::id(),
-//   'saleman'=> $saleman,
-//   'date'=> $date
-// ]);

@@ -33,7 +33,7 @@
                             <div class="row">
 
 
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="saleman">Saleman:</label>
@@ -46,11 +46,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="product">Product:</label>
-                                            <select @change="productChoosed" ref="product" v-model="selectedProduct" class="form-control" id="product" name="product">
+                                            <select @change="productChoosed" ref="product" v-model="selectedProduct" class="form-control w-100" id="product" name="product">
                                             <option value="0" disabled selected>select an option</option>
                                             <option v-for="product in products" v-bind:value="product">
                                                 {{ product.name }}
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                                     <div class="form-group">
                                         <div class="controls">
                                             <label for="date">Date:</label>
@@ -75,7 +75,7 @@
                                 <div class="col-12">
 
 
-                                    <table class="table">
+                                    <table class="table table-striped">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th style="width:10%" scope="col">#</th>
@@ -91,7 +91,7 @@
                                                 <th>{{ index + 1 }}</th>
                                                 <td>{{ p.name }}</td>
                                                 <td >
-                                                    <input v-bind:max="p.stockAvailable" type="number" @change="quantityUpdated(p,index,$event)" v-model.number="p.cartQuantity" class="form-control" name="quantity">
+                                                    <input v-bind:ref="'cart' + (index + 1)" v-bind:title="'Total available '+p.stockAvailable" v-bind:max="p.stockAvailable" type="number" @change="quantityUpdated(p,index,$event)" v-model.number="p.cartQuantity" class="form-control" name="quantity">
                                                 </td>
                                                 <td>{{ p.salePrice }}</td>
                                                 <td> {{ p.cartQuantity }} * {{ p.salePrice }} = {{ p.salePrice * p.cartQuantity }}</td>
@@ -101,6 +101,9 @@
                                     </table>
                                 </div>
 
+                                <div v-if="totalAmount" class="col-12 mt-1 p-2">
+                                  <h6 class="">Total: Rs {{ totalAmount }}</h6>
+                                </div>
                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                                     <button ref="submitBtn" v-on:click="submitCart" type="button" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Submit</button>
                                 </div>

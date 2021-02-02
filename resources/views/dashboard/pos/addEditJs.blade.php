@@ -23,22 +23,41 @@ Vue.directive('selecttwo', {
         },
         created() {
            window.addEventListener('keydown', (e) => {
-             // if (e.key == 'Escape') {
-             //   this.showModal = !this.showModal;
-             // }
-             // (event.ctrlKey || event.metaKey)
-             console.log(e.altKey , e.metaKey, e.key);
-             console.log(e.altKey && e.key.keyCode);
-             console.log(e.key.keyCode);
+
               if (e.altKey && e.keyCode == 83) {
                 this.$refs.saleman.focus();
               }
 
               if (e.altKey && e.keyCode == 65) {
-                this.$refs.product.focus();
+                $("#product").select2('open');
+
               }
               if (e.altKey && e.keyCode == 68) {
                 this.$refs.date.focus();
+              }
+              if (e.altKey && e.keyCode == 49) {
+                this.$refs.cart1[0].focus();
+              }
+              if (e.altKey && e.keyCode == 50) {
+                this.$refs.cart2[0].focus();
+              }
+              if (e.altKey && e.keyCode == 51) {
+                this.$refs.cart3[0].focus();
+              }
+              if (e.altKey && e.keyCode == 52) {
+                this.$refs.cart4[0].focus();
+              }
+              if (e.altKey && e.keyCode == 53) {
+                this.$refs.cart5[0].focus();
+              }
+              if (e.altKey && e.keyCode == 54) {
+                this.$refs.cart6[0].focus();
+              }
+              if (e.altKey && e.keyCode == 55) {
+                this.$refs.cart7[0].focus();
+              }
+              if (e.altKey && e.keyCode == 56) {
+                this.$refs.cart8[0].focus();
               }
 
            });
@@ -95,11 +114,18 @@ Vue.directive('selecttwo', {
                 formData.append('date', this.$refs.date.value);
 
                 axios.post(apiEndPoint, formData).then(response => {
+                  if (response.data.status == 0) {
+                    alert(response.data.message);
+                    return 0;
+                  }
+
+                  w = window.open("{{ route('root') }}" + "/generateInvoice/" + response.data.data.orderId,"_blank");
+                  location.reload();
 
                 }).catch(function(e, f) {
 
-                    // alert('error');
-                    // console.log(e,f);
+                    alert('Error while saving the invoice');
+                    console.log(e,f);
                 });
 
 
@@ -108,8 +134,16 @@ Vue.directive('selecttwo', {
         },
 
         computed: {
-            buttonAttrTitle: function() {
+            totalAmount: function() {
+              var total = 0;
+              if (this.selectedProducts.length) {
+                this.selectedProducts.map(function (obj) {
+                  total += obj.cartQuantity * obj.salePrice;
+                  console.log(obj);
+                });
 
+              }
+              return total;
             }
 
         }

@@ -19,7 +19,11 @@
                 <span class="menu-title" >Home</span>
              </a>
             </li>
-
+            <li class="{{ requestIs('pos.index') }} nav-item">
+              <a href="{!! route('pos.index') !!}"><i class="fa fa-shopping-cart"></i>
+                <span class="menu-title" >POS</span>
+             </a>
+            </li>
 
               <li class="{{ requestIs('products.index') }} nav-item">
                 <a href="{!! route('products.index') !!}"><i class="feather icon-layers"></i>
@@ -36,11 +40,7 @@
                 <span class="menu-title" >Purchase</span>
              </a>
             </li>
-            <li class="{{ requestIs('pos.index') }} nav-item">
-              <a href="{!! route('pos.index') !!}"><i class="fa fa-shopping-cart"></i>
-                <span class="menu-title" >POS</span>
-             </a>
-            </li>
+
 
 
 

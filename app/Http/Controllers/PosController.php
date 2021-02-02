@@ -5,6 +5,7 @@ use App\Saleman;
 use App\Pos;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Order;
 
 class PosController extends Controller
 {
@@ -13,11 +14,24 @@ class PosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $poss = pos::paginate(10);
 
-      $array['poss'] = $poss;
+      $orders = Order::query();
+      $s = $request->s;
+      if ($s != null) {
+        $orders = $orders->where('saleman_id', $request->s);
+      }
+
+
+
+      $orders = $orders->orderBy('id','desc')->paginate();
+
+      $salemans = Saleman::all();
+
+      $array['salemans'] = $salemans;
+      $array['orders'] = $orders;
+      $array['s'] = $s;
 
       return view('dashboard.pos.index', $array);
     }
@@ -31,6 +45,7 @@ class PosController extends Controller
     {
         $salemans  = Saleman::all();
         $products  = Product::all();
+
 
         return view("dashboard.pos.add" , compact('products', 'salemans'));
 

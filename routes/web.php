@@ -68,6 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::post('saveInvoiceAndPrint','OrderController@saveInvoiceAndPrint')->name('saveInvoiceAndPrint');
 
+
+  Route::get('generateInvoice/{order}','OrderController@generateInvoice')->name('generateInvoice');
+
 });
 
 Route::group(['middleware' => ['auth', 'SuperAdminOnly']], function () {
