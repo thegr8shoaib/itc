@@ -10,7 +10,52 @@
         @include('common.messages')
         <div class="content-body">
 
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
 
+                    <div class="card-body">
+
+
+                      <form  action="{{ route('pos.index') }}" method="get">
+
+
+                      <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <div class="form-group">
+                              <div class="controls">
+                                  <label for="saleman">Saleman:</label>
+
+                                  @if ($s)
+                                    <select ref="saleman" class="form-control" id="saleman" name="s">
+                                        <option value="" >select an option</option>
+                                        @foreach ($salemans as $saleman)
+                                          <option @if($saleman->id == $s) selected @endif value="{{ $saleman->id }}">{{ $saleman->name }}</option>
+                                        @endforeach
+                                    </select>
+                                  @else
+                                    <select ref="saleman" class="form-control" id="saleman" name="s">
+                                        <option value="">select an option</option>
+                                        @foreach ($salemans as $saleman)
+                                          <option value="{{ $saleman->id }}">{{ $saleman->name }}</option>
+                                        @endforeach
+                                    </select>
+                                  @endif
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-sm" name="">Filter</button>
+                      </div>
+                    </form>
+
+
+
+
+                    </div>
+                </div>
+              </div>
+            </div>
 
             <div class="row">
                 <div class="col-12">
@@ -28,17 +73,17 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Saleman Name</th>
-                                            <th>Product Name</th>
-                                            <th>Quantity :</th>
-                                            <th>Purchase Price :</th>
-                                            <th>Sale Price :</th>
-                                            <th>Manufacturing Date:</th>
-                                            <th>Expire Date:</th>
+                                            <th>Total Products</th>
+                                            <th>Total Amount</th>
+
+                                            <th>Order Date</th>
+                                            <th>Created</th>
+
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @if (!$poss->count())
+                                      @if (!$orders->count())
                                         <tr>
                                           <td colspan="10" class="text-center">
                                             <h2 class="py-2">No Result Found</h2>
@@ -46,7 +91,7 @@
                                         </tr>
                                       @else
 
-                                        @foreach ($poss as $pos)
+                                        @foreach ($orders as $order)
                                         <tr>
                                           @php
 
@@ -55,40 +100,33 @@
                                               {{ $loop->iteration }}
                                             </td>
                                             <td>
-                                          
-                                              {{ $pos->saleMan->name }}
+
+                                              {{ $order->saleman->name }}
                                             </td>
 
-                                            <td>
 
-                                              {{ $pos->product->name }}
+                                            <td>
+                                              {{ $order->orderItems->count() }}
+                                            </td>
+                                            <td>
+                                              {{ $order->totalAmount() }}
                                             </td>
 
-                                            <td>
-                                              {{ $pos->quantity }}
-                                            </td>
 
                                             <td>
-                                              {{ $pos->purchasePrice }}
+                                              {{ $order->created_at->format('M d, Y') }}
                                             </td>
-
                                             <td>
-                                              {{ $pos->salePrice }}
-                                            </td>
 
-                                            <td>
-                                              {{ $pos->manufacturingDate }}
-                                            </td>
-
-                                            <td>
-                                              {{ dateTimeToFormatedDate($pos->expireDate, 'd M, Y') }}
+                                              {{ $order->date->format('M d, Y') }}
                                             </td>
 
 
 
                                             <td>
-                                             <a  href="{{ route('pos.edit',$$pos->id) }}"><i class="fa fa-edit d-inline">  </i></a>
-                                             <form class="d-inline" action="{{ route('pos.destroy' , $pos->id) }}" method="post">
+                                             <a  href="{{ route('pos.show',$order->id) }}"><i class="fa fa-eye d-inline">  </i></a>
+
+                                             <form class="d-inline" action="{{ route('pos.destroy' , $order->id) }}" method="post">
                                                  @csrf
 
 
@@ -108,9 +146,9 @@
                             </div>
 
 
-                            @if ($poss->count())
+                            @if ($orders->count())
                             <div class="justify-content-center d-flex mt-2">
-                              {{ $poss->links() }}
+                              {{ $orders->links() }}
                             </div>
                             @endif
 
