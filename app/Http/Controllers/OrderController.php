@@ -30,7 +30,7 @@ class OrderController extends Controller
 $product = Product::find($slectedProduct->id);
 
   $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
-  if ($product->stockAvailable < $slectedProduct->cartQuantity) {
+  if ( $slectedProduct->cartQuantity > $product->stockAvailable ) {
 return json(0,"Stock Quantity is Low  Available " . $product->stockAvailable);
       }
   $product->save();
