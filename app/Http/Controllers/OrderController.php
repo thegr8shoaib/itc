@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\Product;
 use App\OrderItem;
 use Auth;
 
@@ -23,14 +24,22 @@ class OrderController extends Controller
       ]);
 
 
-      foreach ($selectedProducts as $product) {
 
-// dd($product);
+
+      foreach ($selectedProducts as $slectedProduct) {
+$product = Product::find($slectedProduct->id);
+
+  $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
+  if ($product->stockAvailable < $slectedProduct->cartQuantity) {
+return json(0,"Stock Quantity is Low  Available " . $product->stockAvailable);
+      }
+  $product->save();
+
         OrderItem::create([
           'product_id' => $product->id,
           'name' =>$product->name,
           'salePrice' =>$product->salePrice,
-          'quantity' =>$product->cartQuantity,
+          'quantity' =>$slectedProduct->cartQuantity,
           'order_id' => $order->id
         ]);
 
