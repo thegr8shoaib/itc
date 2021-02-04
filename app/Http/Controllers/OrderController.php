@@ -50,6 +50,18 @@ class OrderController extends Controller
       'orderId'=> $order->id
     ]);
   }
+  public function return(Request $request, $orderItemId)
+  {
+    $quantity = $request->quantity;
+    // dd($quantity);
+
+    $orderItem = OrderItem::find($orderItemId);
+    $orderItem->quantity = $orderItem->quantity - $quantity;
+    $orderItem->save();
+
+    return status('item updated');
+
+  }
 
   public function generateInvoice(Request $request, $orderId)
   {

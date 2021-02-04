@@ -130,8 +130,8 @@
                                                  @csrf
 
 
-                                                 {{ method_field('delete') }}
-                                               <button type="submit" name="button" class="bg-transparent border-0 d-inline text-danger "> <i class="fa fa-trash"> </i></button>
+                                                 {{-- {{ method_field('delete') }}
+                                               <button type="submit" name="button" class="bg-transparent border-0 d-inline text-danger "> <i class="fa fa-trash"> </i></button> --}}
 
                                              </form>
                                             </td>

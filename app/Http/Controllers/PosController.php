@@ -89,9 +89,14 @@ class PosController extends Controller
      * @param  \App\Pos  $pos
      * @return \Illuminate\Http\Response
      */
-    public function show(Pos $pos)
+    public function show($orderId)
     {
-        //
+
+  $arrr['order'] = Order::with('orderItems')->where('id',$orderId)->first();
+
+
+    return view("dashboard.pos.show" , $arrr );
+
     }
 
     /**

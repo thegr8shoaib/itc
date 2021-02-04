@@ -69,6 +69,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('saveInvoiceAndPrint','OrderController@saveInvoiceAndPrint')->name('saveInvoiceAndPrint');
 
 
+Route::Post('returnOrderItem/{orderItemId}','OrderController@return')->name('returnOrderItem');
+
   Route::get('generateInvoice/{order}','OrderController@generateInvoice')->name('generateInvoice');
 
 });
