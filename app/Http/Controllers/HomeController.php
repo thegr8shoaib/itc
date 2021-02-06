@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Product;
-
+use App\Order;
+use App\OrderItem;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,16 @@ class HomeController extends Controller
     {
 
       $arr['shortItems'] = Product::where("stockavailable", 0)->count();
+
+      $today = Carbon::now();
+
+      $start = date('Y-m') . '-01';
+      $end = date('Y-m-d');
+
+      $arr['salesToday'] = OrderItem::whereDate('created_at',$today)->sum('quantity');
+      $arr['salesThisMonth'] = OrderItem::whereDate('created_at','>=',$start)
+      ->whereDate('created_at','<=',$end)
+      ->sum('quantity');
 
 
       return view('dashboard.home', $arr);

@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-{{-- {{ dd($order) }} --}}
+            {{-- {{ dd($order) }} --}}
         </div>
         @include('common.messages')
         <div class="card-content">
@@ -26,33 +26,33 @@
                             <th>Product Name</th>
                             <th>Total Products</th>
                             <th>Total Amount</th>
-                           <th>Order Date Time</th>
-                              <th>Action</th>
+                            <th>Order Date Time</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
 
-                      @foreach ($order->orderItems as $item)
-                          <tr>
-                              <td>{{ $item->name }}</td>
-                              <td>{{ $item->quantity }}</td>
-                              <td >{{ $item->quantity * $item->salePrice }}</td>
-                                {{-- <td>{{ $date }}</td> --}}
-                                <td>{{ $item->created_at }}</td>
-                                <td>
-                                  <form class="d-inline" action="{{ route('returnOrderItem' , $item->id) }}" method="post">
-                                     @csrf
+                        @foreach ($order->orderItems as $item)
+                        <tr>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->quantity * $item->salePrice }}</td>
+                            {{-- <td>{{ $date }}</td> --}}
+                            <td>{{ $item->created_at }}</td>
+                            <td>
+                                <form class="d-inline" action="{{ route('returnOrderItem' , $item->id) }}" method="post">
+                                    @csrf
 
-                                    {{-- {{ method_field('delete') }} --}}
                                     <label for="returnitems">Return items</label>
-                                    <input type="number" name="quantity" min="0" value="">
-                                  <button type="submit" name="button" class="bg-transparent border-0 d-inline  "> <i class="fa fa-edit"></i></button>
+                                    <input type="number" style="width:90px" max="{{ $item->quantity }}"
+                                     class="form-control d-inline" name="quantity" min="0" value="1">
+                                    <button type="submit" name="button" class="bg-transparent border-0 d-inline  "> <i class="fa fa-edit"></i></button>
 
-                                   </td>
+                            </td>
 
-                          </tr>
-                      @endforeach
+                        </tr>
+                        @endforeach
 
 
                     </tbody>
@@ -63,15 +63,15 @@
             {{-- @if ($order->count())
             <div class="justify-content-center d-flex mt-2">
               {{ $order->links() }}
-            </div>
-            @endif --}}
-
-
         </div>
+        @endif --}}
+
+
     </div>
 </div>
+</div>
 <script type="text/javascript">
-flatpickr('.Date')
+    flatpickr('.Date')
 </script>
 
 <!-- END: Content-->

@@ -18,45 +18,58 @@
               <section class="vuexy-checkbox-sizes">
                   <div class="row">
 
-                    @if (!superAdmin())
-
+                    @if (superAdmin())
                       <div class="col-lg-4 col-sm-12 col-12">
-                          <div class="card">
-                              <div class="card-header d-flex align-items-start pb-0">
-                                  <div>
-                                      <h2 class="text-bold-700 mb-0">
-                                      <label for="shortItems">SHort items</label>
-                                      <p>{{$shortItems}}</p>
-
-                                  </div>
-                                  <div class="avatar bg-rgba-primary p-50 m-0">
-                                      <div class="avatar-content">
-                                          <i class="feather icon-users text-primary font-medium-5"></i>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    @else
-
+                         <div class="card">
+                             <div class="card-header d-flex align-items-start pb-0">
+                                 <div>
+                                     <h2 class="text-bold-700 mb-0">
+                                       <a href="{{ route('products.index') }}">{{$shortItems}}</a>
+                                     </h2>
+                                     <p>Short Items</p>
+                                 </div>
+                                 <div class="avatar bg-rgba-primary p-50 m-0">
+                                     <div class="avatar-content">
+                                         <i class="feather icon-users text-primary font-medium-5"></i>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                       <div class="col-lg-4 col-sm-12 col-12">
-                          <div class="card">
-                              <div class="card-header d-flex align-items-start pb-0">
-                                  <div>
-                                      <h2 class="text-bold-700 mb-0">
-                                      <label for="shortItems">SHort items</label>
-                                      <p>{{$shortItems}}</p>
-
-                                  </div>
-                                  <div class="avatar bg-rgba-primary p-50 m-0">
-                                      <div class="avatar-content">
-                                          <i class="feather icon-users text-primary font-medium-5"></i>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
+                         <div class="card">
+                             <div class="card-header d-flex align-items-start pb-0">
+                                 <div>
+                                     <h2 class="text-bold-700 mb-0">
+                                       <a href="{{ route('pos.index') }}">{{ $salesToday }}</a>
+                                     </h2>
+                                     <p>Sales Today</p>
+                                 </div>
+                                 <div class="avatar bg-rgba-primary p-50 m-0">
+                                     <div class="avatar-content">
+                                         <i class="feather icon-users text-primary font-medium-5"></i>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                      <div class="col-lg-4 col-sm-12 col-12">
+                         <div class="card">
+                             <div class="card-header d-flex align-items-start pb-0">
+                                 <div>
+                                     <h2 class="text-bold-700 mb-0">
+                                       <a href="{{ route('pos.index') }}">{{ $salesThisMonth }}</a>
+                                     </h2>
+                                     <p>Sales This Month</p>
+                                 </div>
+                                 <div class="avatar bg-rgba-primary p-50 m-0">
+                                     <div class="avatar-content">
+                                         <i class="feather icon-users text-primary font-medium-5"></i>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
 
 
 

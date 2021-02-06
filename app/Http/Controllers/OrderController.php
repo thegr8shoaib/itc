@@ -50,13 +50,11 @@ class OrderController extends Controller
       'orderId'=> $order->id
     ]);
   }
-  public function return(Request $request, $orderItemId)
+  public function returnOrderItem(Request $request, $orderItemId)
   {
-    $quantity = $request->quantity;
-    // dd($quantity);
 
     $orderItem = OrderItem::find($orderItemId);
-    $orderItem->quantity = $orderItem->quantity - $quantity;
+    $orderItem->quantity = $orderItem->quantity - $request->quantity;
     $orderItem->save();
 
     return status('item updated');

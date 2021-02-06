@@ -70,7 +70,7 @@
                                 </div> --}}
 
 
-                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                                <div class="col-12 mb-5 d-flex flex-sm-row flex-column justify-content-end mt-1">
                                     <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Save</button>
                                     <button type="reset" class="btn btn-outline-warning">Reset</button>
                                 </div>

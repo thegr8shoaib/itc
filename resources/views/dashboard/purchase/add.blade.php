@@ -112,8 +112,12 @@
 <script src="{{ asset("app-assets/vendors/js/forms/select/select2.full.min.js") }}" charset="utf-8"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-      flatpickr('.manufacturingDate')
-      flatpickr('.expireDate')
+      flatpickr('.manufacturingDate',{
+        defaultDate: "{{ date('Y-m-d') }}"
+      });
+      flatpickr('.expireDate',{
+        defaultDate: "{{ date('Y-m-d',strtotime('+1 week')) }}"
+      });
       // product
       $('#productId').select2({
         ajax: {
