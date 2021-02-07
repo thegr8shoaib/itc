@@ -8,6 +8,8 @@ use App\Product;
 use App\OrderItem;
 use Auth;
 use App\Saleman;
+use App\Purchase;
+
 
 class OrderController extends Controller
 {
@@ -35,15 +37,23 @@ class OrderController extends Controller
       if ($slectedProduct->cartQuantity > $product->stockAvailable) {
         return json(0, "$product->name stock quantity is Low,  available " . $product->stockAvailable);
       }
+
+      #
+      $purchase = Purchase::where('productId',$product->id)->where('quantity', '>',0)->orderBy('id','desc')->first();
+
       $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
       $product->save();
+
       OrderItem::create([
         'product_id' => $product->id,
         'name' => $product->name,
         'salePrice' => $product->salePrice,
         'quantity' => $slectedProduct->cartQuantity,
-        'order_id' => $order->id
+        'order_id' => $order->id,
+        'purchasePrice'=> $purchase->purchasePrice,
+        'profit'=> $slectedProduct->cartQuantity * ($product->salePrice - $purchase->purchasePrice),
       ]);
+
     }
 
     return json(1,'success',[
@@ -55,6 +65,7 @@ class OrderController extends Controller
 
     $orderItem = OrderItem::find($orderItemId);
     $orderItem->quantity = $orderItem->quantity - $request->quantity;
+    $orderItem->profit = $orderItem->quantity * ($orderItem->salePrice - $orderItem->purchasePrice);
     $orderItem->save();
 
     return status('item updated');

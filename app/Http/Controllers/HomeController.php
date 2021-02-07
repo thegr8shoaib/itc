@@ -38,9 +38,9 @@ class HomeController extends Controller
       $end = date('Y-m-d');
 
       $arr['salesToday'] = OrderItem::whereDate('created_at',$today)->sum('quantity');
-      $arr['salesThisMonth'] = OrderItem::whereDate('created_at','>=',$start)
-      ->whereDate('created_at','<=',$end)
-      ->sum('quantity');
+      $arr['salesThisMonth'] = OrderItem::whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->sum('quantity');
+      //
+      $arr['profitThisMonth'] = OrderItem::whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->sum('quantity');
 
 
       return view('dashboard.home', $arr);

@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Saleman;
 use App\Pos;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Order;
+use Auth;
 
 class PosController extends Controller
 {
@@ -16,24 +18,19 @@ class PosController extends Controller
      */
     public function index(Request $request)
     {
+        $orders = Order::query();
+        $s = $request->s;
+        if ($s != null) {
+            $orders = $orders->where('saleman_id', $request->s);
+        }
 
-      $orders = Order::query();
-      $s = $request->s;
-      if ($s != null) {
-        $orders = $orders->where('saleman_id', $request->s);
-      }
+        $orders = $orders->orderBy('id', 'desc')->paginate();
+        $salemans = Saleman::all();
+        $array['salemans'] = $salemans;
+        $array['orders'] = $orders;
+        $array['s'] = $s;
 
-
-
-      $orders = $orders->orderBy('id','desc')->paginate();
-
-      $salemans = Saleman::all();
-
-      $array['salemans'] = $salemans;
-      $array['orders'] = $orders;
-      $array['s'] = $s;
-
-      return view('dashboard.pos.index', $array);
+        return view('dashboard.pos.index', $array);
     }
 
     /**
@@ -45,10 +42,7 @@ class PosController extends Controller
     {
         $salemans  = Saleman::all();
         $products  = Product::all();
-
-
-        return view("dashboard.pos.add" , compact('products', 'salemans'));
-
+        return view("dashboard.pos.add", compact('products', 'salemans'));
     }
 
     /**
@@ -59,28 +53,22 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
-      $pos = Product::find($request->saleMan);
+        $pos = Product::find($request->saleMan);
 
-      $data = $request->validate([
-
-
-        'productId'=> 'required|string|max:255',
-        'saleMan_id'=> 'required|string|max:255',
-        'quantity'=> 'required|string|max:255',
-        'purchasePrice'=> 'required|numeric|min:0|max:900000',
-        'salePrice'=> 'required|numeric|min:0|max:900000',
-        'manufacturingDate'=> 'required|string|min:0|max:900000',
-        'expireDate'=> 'required|string|min:1|max:900000'
-
-      ]);
-
-
-      $data['user_id'] = \Auth::id();
-
-      pos::create($data);
+        $data = $request->validate([
+          'productId'=> 'required|string|max:255',
+          'saleMan_id'=> 'required|string|max:255',
+          'quantity'=> 'required|string|max:255',
+          'purchasePrice'=> 'required|numeric|min:0|max:900000',
+          'salePrice'=> 'required|numeric|min:0|max:900000',
+          'manufacturingDate'=> 'required|string|min:0|max:900000',
+          'expireDate'=> 'required|string|min:1|max:900000'
+        ]);
+        $data['user_id'] = Auth::id();
+        pos::create($data);
 
 
-      return statusTo("Invoice Created Successfully ", route('pos.index'));
+        return statusTo("Invoice Created Successfully ", route('pos.index'));
     }
 
     /**
@@ -91,12 +79,9 @@ class PosController extends Controller
      */
     public function show($orderId)
     {
+        $arrr['order'] = Order::with('orderItems')->where('id', $orderId)->first();
 
-  $arrr['order'] = Order::with('orderItems')->where('id',$orderId)->first();
-
-
-    return view("dashboard.pos.show" , $arrr );
-
+        return view("dashboard.pos.show", $arrr);
     }
 
     /**
