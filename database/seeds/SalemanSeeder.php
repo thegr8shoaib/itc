@@ -14,10 +14,10 @@ class SalemanSeeder extends Seeder
     public function run()
     {
       $faker = Factory::create();
-
+      $salemans = ['Ali','Salman','Nadeem', 'Imran', 'John'];
       for ($i=0; $i < 5; $i++) {
         $data = [
-          'name'=> $faker->name,
+          'name'=> $salemans[$i],
           'designation'=> $faker->sentence(1),
           'contactNumber'=> $faker->phoneNumber,
           'address'=> $faker->address

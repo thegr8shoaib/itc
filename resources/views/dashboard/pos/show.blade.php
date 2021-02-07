@@ -48,6 +48,7 @@
                                     <input type="number" style="width:90px" max="{{ $item->quantity }}"
                                      class="form-control d-inline" name="quantity" min="0" value="1">
                                     <button type="submit" name="button" class="bg-transparent border-0 d-inline  "> <i class="fa fa-edit"></i></button>
+                                </form>
 
                             </td>
 

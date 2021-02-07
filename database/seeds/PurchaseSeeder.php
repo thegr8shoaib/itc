@@ -17,8 +17,8 @@ class PurchaseSeeder extends Seeder
         $product = Product::all();
         $product->map(function ($obj) {
 
-          $basePrice = rand(100,10000);
-          $additional = rand(100,1000);
+          $basePrice = rand(10,100);
+          $additional = rand(10,100);
           $quantity = rand(10,5000);
           $obj->stockAvailable = $obj->stockAvailable  + $quantity ;
           $obj->salePrice =  $basePrice + $additional;
