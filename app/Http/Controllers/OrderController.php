@@ -39,7 +39,7 @@ class OrderController extends Controller
       }
 
       #
-      $purchase = Purchase::where('productId',$product->id)->where('quantity', '>',0)->orderBy('id','desc')->first();
+      $purchase = Purchase::where('productId', $product->id)->where('quantity', '>', 0)->orderBy('id', 'desc')->first();
 
       $product->stockAvailable =  $product->stockAvailable - $slectedProduct->cartQuantity;
       $product->save();
@@ -50,14 +50,13 @@ class OrderController extends Controller
         'salePrice' => $product->salePrice,
         'quantity' => $slectedProduct->cartQuantity,
         'order_id' => $order->id,
-        'purchasePrice'=> $purchase->purchasePrice,
-        'profit'=> $slectedProduct->cartQuantity * ($product->salePrice - $purchase->purchasePrice),
+        'purchasePrice' => $purchase->purchasePrice,
+        'profit' => $slectedProduct->cartQuantity * ($product->salePrice - $purchase->purchasePrice),
       ]);
-
     }
 
-    return json(1,'success',[
-      'orderId'=> $order->id
+    return json(1, 'success', [
+      'orderId' => $order->id
     ]);
   }
   public function returnOrderItem(Request $request, $orderItemId)
@@ -69,18 +68,16 @@ class OrderController extends Controller
     $orderItem->save();
 
     return status('item updated');
-
   }
 
   public function generateInvoice(Request $request, $orderId)
   {
-    $order = Order::with('saleman')->with('orderItems')->where('id',$orderId)->first();
+    $order = Order::with('saleman')->with('orderItems')->where('id', $orderId)->first();
 
-    $invoice = view('invoice.orderInvoice',[
-      'order'=> $order
+    $invoice = view('invoice.orderInvoice', [
+      'order' => $order
     ]);
 
     return $invoice;
-
   }
 }

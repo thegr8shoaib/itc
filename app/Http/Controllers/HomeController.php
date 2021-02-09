@@ -32,6 +32,7 @@ class HomeController extends Controller
     {
 
       $arr['shortItems'] = Product::where("stockavailable", 0)->count();
+      $arr['totalStockAvailable'] = Product::sum('stockavailable');
 
       $today = Carbon::now();
 
@@ -40,11 +41,13 @@ class HomeController extends Controller
 
       $arr['salesToday'] = OrderItem::whereDate('created_at',$today)->sum('quantity');
       $arr['salesThisMonth'] = OrderItem::whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->sum('quantity');
+
       //
       $arr['profitThisMonth'] = OrderItem::whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->sum('profit');
       $arr['profitToday'] = OrderItem::whereDate('created_at',$today)->sum('profit');
 
       $arr['expenceThisMonth'] = Expence::whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->sum('amount');
+
 
 
       return view('dashboard.home', $arr);

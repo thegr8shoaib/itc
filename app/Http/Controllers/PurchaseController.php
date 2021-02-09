@@ -6,8 +6,13 @@ use App\Purchase;
 use Illuminate\Http\Request;
 use App\Product;
 
+use App\Balance;
+use Illuminate\Support\Facades\Auth;
+
+
 class PurchaseController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -40,33 +45,43 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-
-      $product = Product::find($request->productId);
-
-
-      $product->stockAvailable = $product->stockAvailable  + $request->quantity ;
-      $product->save();
-      $product->salePrice =  $request->salePrice ;
-      $product->save();
-
-
       $data = $request->validate([
-
-
         'productId'=> 'required|string|max:255',
         'quantity'=> 'required|string|max:255',
         'purchasePrice'=> 'required|numeric|min:0|max:900000',
         'salePrice'=> 'required|numeric|min:0|max:900000',
         'manufacturingDate'=> 'required|string|min:0|max:900000',
         'expireDate'=> 'required|string|min:1|max:900000'
-
       ]);
 
+      $totalBalanceRequired = $request->quantity * $request->purchasePrice;
 
-      $data['user_id'] = \Auth::id();
+      $balance = Balance::orderBy('id','desc')->first();
 
-      Purchase::create($data);
+      if ($totalBalanceRequired > $balance->closingBalance) {
+        $str = " $balance->closingBalance is available, But purchase total required $totalBalanceRequired";
+        return error('Low balance, please add balance before purchasing,' . $str);
+      }
 
+
+      $product = Product::find($request->productId);
+      $product->stockAvailable = $product->stockAvailable  + $request->quantity ;
+      $product->salePrice =  $request->salePrice ;
+      $product->save();
+
+      $data['user_id'] = Auth::id();
+
+      $purchase = Purchase::create($data);
+
+      $balanceData = [
+        'amount'=> $totalBalanceRequired,
+        'type'=> 2,
+        'closingBalance'=> $balance->closingBalance - $totalBalanceRequired,
+        'description'=> "$request->quantity $product->name Purchased",
+        'date'=> date('Y-m-d'),
+        'purchase_Id'=> $purchase->id
+      ];
+      Balance::create($balanceData);
 
       return statusTo("Purchase Added Successfully ", route('purchase.index'));
     }

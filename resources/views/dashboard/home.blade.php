@@ -120,6 +120,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-4 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-start pb-0">
+                                <div>
+                                    <h2 class="text-bold-700 mb-0">
+                                        <a href="{{ route('products.index') }}">{{ $totalStockAvailable }}</a>
+                                    </h2>
+                                    <p>Total Stock Available</p>
+                                </div>
+                                <div class="avatar bg-rgba-primary p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i class="feather icon-alert-octagon text-primary font-medium-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endif
 
 

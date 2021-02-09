@@ -24,7 +24,7 @@
                         <tr>
 
                             <th>Product Name</th>
-                            <th>Total Products</th>
+                            <th>Quantity</th>
                             <th>Total Amount</th>
                             <th>Order Date Time</th>
                             <th>Action</th>

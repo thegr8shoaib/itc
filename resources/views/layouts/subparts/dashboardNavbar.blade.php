@@ -48,6 +48,10 @@
               <a href="{!! route('expence.index') !!}"><i class="fa fa-money" aria-hidden="true"></i>
                 <span class="menu-title" >Expences</span>
              </a>
+            <li class="{{ requestIs('balance.index') }} nav-item">
+              <a href="{!! route('balance.index') !!}"><i class="fa fa-money" aria-hidden="true"></i>
+                <span class="menu-title" >Balance</span>
+             </a>
 
             </li>
             {{-- <li class="{{ requestIs('company.index') }} nav-item">
